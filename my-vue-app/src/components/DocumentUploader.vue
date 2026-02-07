@@ -17,7 +17,6 @@
       </li>
     </ul>
 
-
     <!-- PDF -->
     <p><b>OR upload a PDF (auto-save)</b></p>
     <input
@@ -29,13 +28,12 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { ref } from "vue";
+import api from "../services/api";
 
 const props = defineProps({ index: Number });
 const emit = defineEmits(["saved"]);
 
-const API_URL = "http://localhost:8000";
 const images = ref([]);
 
 /* 🔥 AUTO-CONVERT IMAGES */
@@ -52,12 +50,17 @@ async function autoConvertImages(e) {
     `img_${props.index}_` +
     selected.map(i => i.name).join(",");
 
-  const res = await axios.post(
-    `${API_URL}/images-to-pdf`,
-    form
-  );
+  try {
+    const res = await api.post("/images-to-pdf", form, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
-  emit("saved", res.data.path, key);
+    // 🔑 THIS ENABLES THE BUTTON
+    emit("saved", res.data.path, key);
+  } catch (err) {
+    console.error("Image upload failed:", err);
+    alert("Image upload failed");
+  }
 
   images.value = [];
   e.target.value = "";
@@ -73,12 +76,18 @@ async function autoSavePdf(e) {
 
   const key = `pdf_${props.index}_${file.name}`;
 
-  const res = await axios.post(
-    `${API_URL}/save-pdf`,
-    form
-  );
+  try {
+    const res = await api.post("/save-pdf", form, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
-  emit("saved", res.data.path, key);
+    // 🔑 THIS ENABLES THE BUTTON
+    emit("saved", res.data.path, key);
+  } catch (err) {
+    console.error("PDF upload failed:", err);
+    alert("PDF upload failed");
+  }
+
   e.target.value = "";
 }
 </script>
