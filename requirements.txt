@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+requests
+sentence-transformers
+groq
+Pillow
+reportlab
+python-dotenv
+beautifulsoup4
+python-multipart
