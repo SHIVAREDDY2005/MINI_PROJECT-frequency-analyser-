@@ -81,10 +81,8 @@
 
 <script setup>
 import { ref } from "vue";
-import axios from "axios";
 import DocumentUploader from "./components/DocumentUploader.vue";
-
-const API_URL = "http://localhost:8000";
+import api from "./services/api";
 
 const numDocs = ref(1);
 const savedDocs = ref([]);
@@ -100,14 +98,13 @@ function onSaved(path, key) {
     savedOnce.add(key);
   }
 }
+
+// ---------------- DOWNLOAD FINAL PDF ----------------
 async function downloadFinalPdf() {
-  const res = await axios.get(
-    `${API_URL}/download`,
-    {
-      params: { path: finalPdf.value },
-      responseType: "blob"
-    }
-  );
+  const res = await api.get("/download", {
+    params: { path: finalPdf.value },
+    responseType: "blob",
+  });
 
   const blob = new Blob([res.data], { type: "application/pdf" });
   const url = window.URL.createObjectURL(blob);
@@ -119,14 +116,13 @@ async function downloadFinalPdf() {
 
   window.URL.revokeObjectURL(url);
 }
+
+// ---------------- DOWNLOAD FREQUENCY JSON ----------------
 async function downloadFreqJson() {
-  const res = await axios.get(
-    `${API_URL}/download`,
-    {
-      params: { path: freqJson.value },
-      responseType: "blob"
-    }
-  );
+  const res = await api.get("/download", {
+    params: { path: freqJson.value },
+    responseType: "blob",
+  });
 
   const blob = new Blob([res.data], { type: "application/json" });
   const url = window.URL.createObjectURL(blob);
@@ -139,37 +135,35 @@ async function downloadFreqJson() {
   window.URL.revokeObjectURL(url);
 }
 
+// ---------------- RUN PIPELINE ----------------
 async function runPipeline() {
   if (!savedDocs.value.length) {
     alert("Please upload images or PDFs first");
     return;
   }
 
-  const start = await axios.post(
-    `${API_URL}/run-pipeline`,
-    savedDocs.value,
-  );
-
+  const start = await api.post("/run-pipeline", savedDocs.value);
   const jobId = start.data.job_id;
+
   status.value = "🚀 Pipeline running...";
 
-  while (true) {
-    const res = await axios.get(
-      `${API_URL}/job-status/${jobId}`
-    );
-
+  let tries = 0;
+  while (tries < 300) { // ~5 minutes max
+    const res = await api.get(`/job-status/${jobId}`);
     status.value = res.data.status;
 
     if (status.value.startsWith("❌")) return;
 
-if (status.value.includes("Completed")) {
+    if (status.value.includes("Completed")) {
       finalPdf.value = res.data.result.final_pdf;
       freqJson.value = res.data.result.frequency_json;
       break;
     }
 
     await new Promise(r => setTimeout(r, 1000));
+    tries++;
   }
 }
 </script>
+
 
