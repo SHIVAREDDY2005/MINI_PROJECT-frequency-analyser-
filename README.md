@@ -19,29 +19,29 @@ An AI-powered system that extracts text from multiple PDFs (including scanned do
 ```mermaid
 flowchart TD
 
-A[User Uploads Files<br>PDF / Images / Word / Text] --> B[Convert All Inputs to PDF Format]
+A[User Uploads Files: PDF, Images, Word, Text] --> B[Convert All Inputs to PDF]
 
-B --> C[Frontend (Vue + Vite)<br>Deployed on GitHub Pages]
+B --> C[Frontend - Vue and Vite - GitHub Pages]
 
-C --> D[Backend API (FastAPI)<br>Deployed on Hugging Face]
+C --> D[Backend API - FastAPI - Hugging Face]
 
-D --> E[Send PDFs to PaddleOCR-VL Model]
+D --> E[Send PDFs to PaddleOCR VL Model]
 
-E --> F[Extracted Text + Images<br>Stored as HTML (vl_output folder)]
+E --> F[Extract Text and Images - Stored as HTML]
 
-F --> G[Each HTML sent to LLM<br>Model: openai/gpt-oss-20b]
+F --> G[LLM Processing - openai gpt oss 20b]
 
 G --> H[Generate Structured JSON Files]
 
-H --> I[Frequency Analysis<br>Model: all-mpnet-base-v2]
+H --> I[Frequency Analysis - all mpnet base v2]
 
 I --> J[Create Final Frequency JSON]
 
 J --> K[Convert Final JSON to PDF]
 
-K --> L[Output: Frequency-Based Question Paper PDF]
-
+K --> L[Output - Frequency Based Question Paper PDF]
 ```
+
 ---
 
 ## 🚀 Tech Stack
