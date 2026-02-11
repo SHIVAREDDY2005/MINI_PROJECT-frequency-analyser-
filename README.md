@@ -1,39 +1,153 @@
-# MINI 2.0 🚀
+# 📊 Frequency Analyzer – AI Powered Question Paper Generator
 
-MINI 2.0 is an AI-powered application that processes inputs, performs intelligent analysis using sentence embeddings and LLMs, and generates structured outputs including JSON and PDF reports.  
-It supports both **API-based access (FastAPI)** and **interactive UI (Streamlit)**.
+An AI-powered system that extracts text from multiple PDFs (including scanned documents), performs semantic frequency analysis using NLP models, and automatically generates a structured **Frequency-Based Question Paper (PDF Output)**.
+
+---
+
+## 🔗 Live Demo
+
+- 🌐 Frontend (Vue + Vite – GitHub Pages)  
+  https://shivareddy2005.github.io/MINI_PROJECT-frequency-analyser-/
+
+- ⚙ Backend (FastAPI – Hugging Face Spaces)  
+  https://shivareddy-03-frequency-analysis.hf.space
+
+---
+
+## 🏗️ Project Architecture
+
+INPUT (PDF / Images / Word / Text)
+│
+▼
+Convert all files to PDF
+│
+▼
+PaddleOCR-VL Model
+(Text extraction → HTML + Images)
+│
+▼
+LLM (openai/gpt-oss-20b)
+(HTML → Structured JSON)
+│
+▼
+Sentence Embeddings (all-mpnet-base-v2)
+(Frequency & Semantic Analysis)
+│
+▼
+Final JSON → Converted to PDF
+│
+▼
+OUTPUT: Frequency-Based Question Paper
+
+
+---
+
+## 🚀 Tech Stack
+
+### 🌐 Frontend
+- Vue.js  
+- Vite  
+- GitHub Pages Deployment  
+
+### ⚙ Backend
+- FastAPI  
+- Hugging Face Spaces Deployment  
+
+### 🤖 AI / ML Models
+- PaddleOCR-VL → OCR & text extraction  
+- openai/gpt-oss-20b → Structured JSON generation  
+- all-mpnet-base-v2 → Semantic similarity & frequency computation  
 
 ---
 
 ## ✨ Features
 
-- 🔹 AI-powered semantic processing (Sentence Transformers)
-- 🔹 LLM integration using Groq
-- 🔹 FastAPI backend with CORS support
-- 🔹 Streamlit-based interactive interface
-- 🔹 Image handling and processing
-- 🔹 JSON to structured PDF generation
-- 🔹 Environment-variable based configuration
+- ✅ Multi-PDF Upload Support  
+- ✅ OCR for Scanned Documents  
+- ✅ AI-Based Structured Data Extraction  
+- ✅ Semantic Frequency Analysis  
+- ✅ Automated Question Paper Generation  
+- ✅ Fully Deployed Cloud Architecture  
 
 ---
 
-## 🛠️ Tech Stack
+## 📂 Folder Structure
 
-- **Backend:** FastAPI
-- **Frontend:** Streamlit / Vue (optional)
-- **AI / NLP:** Sentence-Transformers, Groq
-- **PDF Generation:** ReportLab
-- **Image Processing:** Pillow
-- **Deployment-ready**
+frontend/ → Vue + Vite application
+backend/ → FastAPI server
+vl_output/ → OCR extracted HTML & images
+models/ → NLP & embedding models
+
 
 ---
 
-## 📦 Requirements
+## ⚙️ Installation (Local Setup)
 
-- Python **3.9+**
-- pip
-
-Install dependencies:
+### 1️⃣ Clone the Repository
 
 ```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+2️⃣ Backend Setup (FastAPI)
+cd backend
 pip install -r requirements.txt
+uvicorn main:app --reload
+Backend runs at:
+
+http://127.0.0.1:8000
+3️⃣ Frontend Setup (Vue + Vite)
+cd frontend
+npm install
+npm run dev
+Frontend runs at:
+
+http://localhost:5173
+🧠 How It Works
+Upload multiple PDFs.
+
+Convert all files into standard PDF format.
+
+Extract text using PaddleOCR-VL.
+
+Convert HTML output into structured JSON using LLM.
+
+Generate embeddings using all-mpnet-base-v2.
+
+Compute semantic similarity and frequency.
+
+Generate final Frequency-Based Question Paper (PDF).
+
+📈 Use Cases
+University Exam Analysis
+
+Competitive Exam Preparation
+
+Question Pattern Detection
+
+Academic Research Automation
+
+AI-Based Educational Tools
+
+🏆 Highlights
+End-to-End AI Pipeline
+
+Multi-model NLP Integration
+
+Fully Cloud Deployed (GitHub + Hugging Face)
+
+Real-world Academic Application
+
+📜 License
+This project is built for educational and research purposes.
+
+
+---
+
+If you want, I can now:
+
+- 🔥 Add GitHub badges (cool professional look)
+- 💼 Optimize for recruiters
+- 🏆 Make hackathon-winning version
+- ✨ Make a super clean minimal README
+
+Tell me which style you want 👌
