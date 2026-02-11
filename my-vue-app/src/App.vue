@@ -22,7 +22,7 @@
 
       <!-- MAIN CARD -->
       <div class="card">
-        <h1>Exam Question Processing Pipeline</h1>
+        <h1>Intelligent Frequency Analysis Platform</h1>
         <p class="subtitle">
           Upload PDFs or Images · Auto Processing · Semantic Frequency
         </p>
